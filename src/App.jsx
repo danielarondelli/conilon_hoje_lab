@@ -228,8 +228,22 @@ function pick(object, keys, fallback = "") {
 }
 
 function dateLabel(value) {
-  const date = value ? new Date(value) : new Date();
-  if (Number.isNaN(date.getTime())) return String(value || "");
+  if (!value) return "";
+
+  const text = String(value).trim();
+  const brazilianDate = text.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+
+  let date;
+
+  if (brazilianDate) {
+    const [, day, month, year] = brazilianDate;
+    date = new Date(Number(year), Number(month) - 1, Number(day));
+  } else {
+    date = new Date(value);
+  }
+
+  if (Number.isNaN(date.getTime())) return text;
+
   return date.toLocaleDateString("pt-BR", {
     day: "2-digit",
     month: "long",
