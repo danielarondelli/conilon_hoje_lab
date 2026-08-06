@@ -4,7 +4,7 @@ import logoConilon from "../../assets/logo-conilon.jpg.jpeg";
 import mascoteAlegre from "../../assets/mascotes/mascote_alegre.png";
 import mascoteObservando from "../../assets/mascotes/mascote_observando.png";
 import mascotePensando from "../../assets/mascotes/mascote_pensando.png";
-import evidenciaTradingView from "../../assets/evidencias/tradingview_robusta_2026-07-22.png";
+import evidenciaElnino from "../../assets/evidencias/elnino-florada.png";
 
 const SHEET_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vT538JtTs5njlBOQ9W_zW94-MBB84BBIVwteDGctFQDD2RQC_bUdSkYbyeAq1N-R2uGZsVsIIIuH0CN/pub?gid=863354306&single=true&output=csv";
@@ -1498,27 +1498,27 @@ function LibraryPage({ navigate }) {
 }
 
 function EvidencePage({ current, navigate }) {
-  const title = "Cooabriel revisa estimativa de safra após avaliações nas lavouras";
-  const text = "A cooperativa ampliou sua estimativa de redução da safra de Conilon para uma faixa entre 25% e 30% nas regiões acompanhadas. Segundo o superintendente-geral Carlos Augusto Pandolfi, a revisão foi baseada na evolução da colheita e na avaliação direta dos grãos retirados das propriedades.";
-  const image = evidenciaTradingView;
-  const link = getField(current, ["laboratorio_link", "destaque_link", "externo_link"]);
-  const sourceLabel = "Fonte: Cooabriel • Entrevista com Carlos Augusto Pandolfi • 23/07/2026";
+  const title = "El Niño acende alerta para a próxima florada do café";
+  const text = "Um novo relatório da IMBR Agro indica que o maior risco do El Niño para a safra 2026/27 pode não estar no volume total de chuva, mas na sua distribuição durante as fases mais sensíveis da produção. Novembro aparece como o período de maior atenção para o calendário agrícola.";
+  const image = evidenciaElnino;
+  const link = "https://conexaosafra.com/agronegocio/el-nino-na-safra-2026-2027-saiba-como-ficarao-as-chuvas-em-cada-regiao-e-qual-sera-o-mes-mais-critico/";
+  const sourceLabel = "Fonte: IMBR Agro • NOAA • ERA5 • Relatório publicado em 30/07/2026";
   const layers = [
     [
       "O que mostra",
-      "A evolução da colheita confirmou uma produção menor do que a estimada inicialmente. Segundo a Cooabriel, a avaliação direta das lavouras revelou uma realidade que os modelos utilizados no início da safra não conseguiram captar com precisão.",
+      "O estudo projeta um comportamento irregular das chuvas em diferentes regiões do Brasil. Para o Sudeste, onde se concentra grande parte da produção de café, o alerta está na possibilidade de períodos secos justamente durante fases decisivas do ciclo produtivo.",
     ],
     [
       "Por que importa",
-      "Mercados não reagem apenas aos números finais da safra, mas também à credibilidade das informações disponíveis. Quando uma cooperativa com forte presença no campo revisa sua estimativa e aponta limitações nas metodologias tradicionais, aumenta o peso das evidências observadas diretamente nas lavouras e muda a percepção sobre a oferta disponível.",
+      "No café, a produtividade depende menos do volume acumulado de chuva e mais da regularidade das precipitações. Florada, pegamento dos frutos e enchimento dos grãos podem ser afetados por poucos dias de déficit hídrico.",
     ],
     [
       "Como se conecta",
-      "Esta entrevista reforça um princípio importante da leitura de mercado: acompanhar diariamente o campo permite identificar mudanças que muitas vezes demoram a aparecer nas estatísticas oficiais. A observação da colheita, da formação dos grãos e do comportamento dos produtores complementa as projeções e ajuda a interpretar melhor o mercado físico.",
+      "Essa é uma das razões pelas quais o mercado acompanha o clima muitos meses antes da colheita. Quando aumenta o risco para a próxima safra, a percepção sobre a oferta futura também muda, podendo influenciar a formação dos preços antes mesmo de qualquer perda confirmada.",
     ],
     [
       "O que observar",
-      "Vale acompanhar se outras instituições também revisarão suas estimativas de safra e como essa percepção será refletida na comercialização, nos estoques, nas exportações e na evolução do preço físico ao longo das próximas semanas.",
+      "Além das próximas atualizações dos modelos climáticos para setembro, outubro e novembro, vale acompanhar os relatos de florada nas principais regiões produtoras. Muitas vezes, os primeiros sinais de estresse hídrico aparecem no campo antes de serem refletidos nos relatórios oficiais.",
     ],
   ];
 
@@ -1538,7 +1538,7 @@ function EvidencePage({ current, navigate }) {
           rel="noreferrer"
           aria-label="Ampliar evidência"
         >
-          <img src={image} alt="Avaliação de frutos de café Conilon em uma peneira" />
+          <img src={image} alt="Mapa climático do Brasil com contraste entre áreas úmidas e secas" />
         </a>
 
         <div>
