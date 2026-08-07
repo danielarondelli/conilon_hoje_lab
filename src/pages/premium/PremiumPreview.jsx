@@ -550,7 +550,7 @@ h1,h2,h3,p,strong,span,label,small,a,button{color:inherit}
 .labp-metric-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:14px}.labp-metric-row div{padding:11px;border:1px solid var(--line);border-radius:13px;background:var(--s3)}.labp-metric-row span,.labp-metric-row strong{display:block}.labp-metric-row span{font-size:10px;color:var(--muted)}.labp-metric-row strong{margin-top:4px}
 .labp-evidence-compact{display:grid;grid-template-columns:180px minmax(0,1fr);gap:18px;align-items:center;padding:18px;border:1px solid #6f6445;border-radius:22px;background:linear-gradient(145deg,#263527,#102119)}
 .labp-evidence-thumb{width:180px;height:130px;border-radius:15px;overflow:hidden;background:#fff}.labp-evidence-thumb img{width:100%;height:100%;object-fit:cover}
-.labp-evidence-compact h2{margin:7px 0}.labp-evidence-compact p{margin:0;color:var(--muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.labp-evidence-compact h2{margin:7px 0}.labp-evidence-compact p{margin:0;color:var(--muted);line-height:1.5;display:block;overflow:visible}
 .labp-step-number{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:rgba(215,193,138,.14);color:var(--premium);font-weight:950}
 .labp-decision-chain .labp-tile{height:225px;min-height:225px;max-height:225px}
 .labp-news-connect{display:grid;grid-template-columns:96px minmax(0,1fr) auto;align-items:center;gap:15px;padding:15px 18px;border:1px solid #6f6445;border-radius:20px;background:linear-gradient(145deg,#263527,#102119)}
@@ -559,7 +559,7 @@ h1,h2,h3,p,strong,span,label,small,a,button{color:inherit}
 @media(max-width:800px){
   .labp-tile{flex-basis:84vw;height:205px;min-height:205px;max-height:205px}
   .labp-focus-card{grid-template-columns:1fr;min-height:0}.labp-focus-card img{display:none}
-  .labp-evidence-compact{grid-template-columns:112px minmax(0,1fr);gap:12px}.labp-evidence-thumb{width:112px;height:104px}
+  .labp-evidence-compact{grid-template-columns:112px minmax(0,1fr);gap:12px}.labp-evidence-thumb{width:112px;height:104px}.labp-evidence-compact>div:last-child{min-width:0}.labp-evidence-compact h2,.labp-evidence-compact p,.labp-evidence-compact small{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;overflow-wrap:anywhere!important;max-height:none!important;-webkit-line-clamp:unset!important}
   .labp-news-connect{grid-template-columns:78px minmax(0,1fr)}.labp-news-connect img{width:72px;height:82px}.labp-news-connect button{grid-column:1/-1;width:100%}
   .labp-metric-row{grid-template-columns:repeat(3,minmax(0,1fr))}.labp-ruler-card{height:220px}
 }
@@ -1418,9 +1418,8 @@ function FactsPage({ current, navigate }) {
 
 function FactDetailPage({ current, index, navigate }) {
   const fact=buildFacts(current)[Math.max(0,Math.min(3,index))];
-  return <main className="labp-page"><div className="labp-page-head"><button className="labp-back" onClick={()=>navigate("back")}>← Voltar</button><span className="labp-eyebrow">FATO {index+1}</span><h1>{fact.title}</h1></div><section className="labp-focus-card"><div><span className="labp-eyebrow">LEITURA PREMIUM</span><p>{fact.reading || fact.text}</p><div className="labp-focus-actions">{fact.link&&<a className="labp-gold-button" href={fact.link} target="_blank" rel="noreferrer">Abrir fonte original →</a>}{index<3&&<button className="primary" onClick={()=>navigate(`fact-${index+1}`)}>Próximo fato →</button>}</div></div><img src={mascotePensando} alt="Seu Conilon"/></section></main>;
+  return <main className="labp-page"><div className="labp-page-head"><button className="labp-back" onClick={()=>navigate("back")}>← Voltar</button><span className="labp-eyebrow">FATO {index+1}</span><h1>{fact.title}</h1></div><section className="labp-focus-card"><div><span className="labp-eyebrow">LEITURA PREMIUM</span><p>{fact.reading || fact.text}</p><div className="labp-focus-actions">{index<3&&<button className="primary" onClick={()=>navigate(`fact-${index+1}`)}>Próximo fato →</button>}</div></div><img src={mascotePensando} alt="Seu Conilon"/></section></main>;
 }
-
 function ConnectingPage({ current, navigate }) {
   const text=getField(current,["conectando_os_pontos","premium_conectando_os_pontos","conexao_premium","leitura_integrada"],"A conexão entre os fatos ainda não foi preenchida na planilha.");
   return <main className="labp-page"><div className="labp-page-head"><button className="labp-back" onClick={()=>navigate("back")}>← Voltar</button><span className="labp-eyebrow">CONEXÃO DO DIA</span><h1>Conectando os pontos</h1></div><section className="labp-focus-card"><div><p>{text}</p><div className="labp-focus-actions"><button className="primary" onClick={()=>navigate("vectors")}>Ver os vetores →</button></div></div><img src={mascoteObservando} alt="Seu Conilon"/></section></main>;
@@ -1501,7 +1500,6 @@ function EvidencePage({ current, navigate }) {
   const title = "El Niño acende alerta para a próxima florada do café";
   const text = "Um novo relatório da IMBR Agro indica que o maior risco do El Niño para a safra 2026/27 pode não estar no volume total de chuva, mas na sua distribuição durante as fases mais sensíveis da produção. Novembro aparece como o período de maior atenção para o calendário agrícola.";
   const image = evidenciaElnino;
-  const link = "https://conexaosafra.com/agronegocio/el-nino-na-safra-2026-2027-saiba-como-ficarao-as-chuvas-em-cada-regiao-e-qual-sera-o-mes-mais-critico/";
   const sourceLabel = "Fonte: IMBR Agro • NOAA • ERA5 • Relatório publicado em 30/07/2026";
   const layers = [
     [
@@ -1531,15 +1529,9 @@ function EvidencePage({ current, navigate }) {
       </div>
 
       <section className="labp-evidence-compact">
-        <a
-          className="labp-evidence-thumb labp-evidence-thumb-link"
-          href={image}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Ampliar evidência"
-        >
+        <div className="labp-evidence-thumb">
           <img src={image} alt="Mapa climático do Brasil com contraste entre áreas úmidas e secas" />
-        </a>
+        </div>
 
         <div>
           <span className="labp-eyebrow">EVIDÊNCIA SELECIONADA</span>
@@ -1548,17 +1540,6 @@ function EvidencePage({ current, navigate }) {
           <small style={{ display: "block", marginTop: 10, color: "var(--premium)", lineHeight: 1.45 }}>
             {sourceLabel}
           </small>
-          {link && (
-            <a
-              className="labp-gold-button"
-              href={link}
-              target="_blank"
-              rel="noreferrer"
-              style={{ display: "inline-flex", marginTop: 12, textDecoration: "none" }}
-            >
-              Fonte original →
-            </a>
-          )}
         </div>
       </section>
 
