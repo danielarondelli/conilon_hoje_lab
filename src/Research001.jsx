@@ -1,15 +1,21 @@
 
 import React, { useState } from "react";
 
+const GOOGLE_FORM_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSemH7XLF8DcIpvr8wxhnUP2_xFt87YPbNOpmdYR-ChxeK_UFA/viewform";
+
 const content = {
   en: {
     back: "Back to Conilon Hoje",
     issue: "RESEARCH 001 | INAUGURAL EDITION",
     title: "How much coffee can the world afford to lose in 2027/28?",
-    subtitle: "An independent quantitative assessment of global coffee supply risk.",
+    subtitle:
+      "An independent quantitative assessment of global coffee supply risk.",
     questionTitle: "Two questions. One supply-risk assessment.",
-    q1: "How much production headroom remains under different supply shocks in 2027/28?",
-    q2: "What can observable coffee inventories tell us about supply resilience?",
+    q1:
+      "How much production headroom remains under different supply shocks in 2027/28?",
+    q2:
+      "What can observable coffee inventories tell us about supply resilience?",
     description:
       "The research combines public production and consumption data, origin-level scenarios, historical supply shocks and inventory evidence. It examines the resilience of the global coffee balance without presenting conditional scenarios as definitive forecasts.",
     metrics: ["Lower stress", "Central", "Severe stress"],
@@ -25,18 +31,10 @@ const content = {
     priceLabel: "INAUGURAL PRICE",
     formTitle: "Request your payment link",
     formInfo:
-      "Submit your details to request an individual Payoneer payment link. The PDF is delivered by email after payment confirmation.",
-    name: "Full name",
-    email: "Email address",
-    language: "Report edition",
-    portugueseEdition: "Portuguese PDF",
-    company: "Company or professional activity (optional)",
+      "To request an individual Payoneer payment link, click below and complete the request form. The PDF will be delivered by email after payment confirmation.",
     submit: "Request payment link",
-    sending: "Sending request...",
-    success:
-      "Request received. We will contact you by email with payment instructions.",
-    error:
-      "The request could not be sent. Please try again later.",
+    formNote:
+      "The request form opens in a new tab. Submitting the form does not constitute a payment or purchase confirmation.",
     footer:
       "Independent coffee market research | Daniela Rondelli"
   },
@@ -68,18 +66,10 @@ const content = {
     priceLabel: "PREÇO INAUGURAL",
     formTitle: "Solicite seu link de pagamento",
     formInfo:
-      "Envie seus dados para solicitar um link individual da Payoneer. O PDF será entregue por e-mail após a confirmação do pagamento.",
-    name: "Nome completo",
-    email: "Endereço de e-mail",
-    language: "Edição do relatório",
-    portugueseEdition: "PDF em português",
-    company: "Empresa ou atividade profissional (opcional)",
+      "Para solicitar um link individual de pagamento da Payoneer, clique abaixo e preencha o formulário de solicitação. O PDF será entregue por e-mail após a confirmação do pagamento.",
     submit: "Solicitar link de pagamento",
-    sending: "Enviando solicitação...",
-    success:
-      "Solicitação recebida. Entraremos em contato por e-mail com as instruções de pagamento.",
-    error:
-      "Não foi possível enviar a solicitação. Tente novamente mais tarde.",
+    formNote:
+      "O formulário será aberto em uma nova aba. O envio da solicitação não representa pagamento nem confirmação de compra.",
     footer:
       "Pesquisa independente do mercado de café | Daniela Rondelli"
   }
@@ -96,68 +86,13 @@ const colors = {
 
 export default function Research001() {
   const [lang, setLang] = useState("en");
-  const [edition, setEdition] = useState("en");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [company, setCompany] = useState("");
-  const [status, setStatus] = useState("idle");
 
   const t = content[lang];
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-
-    if (status === "sending") return;
-
-    setStatus("sending");
-
-    try {
-      const response = await fetch("/api/research-request", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          product: "Research 001",
-          price: 69,
-          currency: "USD",
-          name: name.trim(),
-          email: email.trim(),
-          company: company.trim(),
-          edition
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error("Request failed");
-      }
-
-      setStatus("success");
-      setName("");
-      setEmail("");
-      setCompany("");
-    } catch {
-      setStatus("error");
-    }
-  }
 
   const section = {
     maxWidth: 1000,
     margin: "0 auto",
     padding: "40px 24px"
-  };
-
-  const field = {
-    display: "block",
-    width: "100%",
-    boxSizing: "border-box",
-    padding: "14px",
-    marginTop: 8,
-    border: "1px solid #c8d0c8",
-    borderRadius: 7,
-    fontSize: 16,
-    background: "#fff",
-    color: colors.ink
   };
 
   return (
@@ -499,123 +434,38 @@ export default function Research001() {
             {t.formInfo}
           </p>
 
-          <form onSubmit={handleSubmit}>
-            <label>
-              {t.name}
+          <a
+            href={GOOGLE_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "block",
+              boxSizing: "border-box",
+              marginTop: 26,
+              padding: "16px 22px",
+              width: "100%",
+              borderRadius: 7,
+              fontSize: 16,
+              background: colors.green,
+              color: "#fff",
+              fontWeight: 700,
+              textAlign: "center",
+              textDecoration: "none"
+            }}
+          >
+            {t.submit}
+          </a>
 
-              <input
-                style={field}
-                required
-                maxLength={120}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </label>
-
-            <label
-              style={{
-                display: "block",
-                marginTop: 19
-              }}
-            >
-              {t.email}
-
-              <input
-                style={field}
-                required
-                type="email"
-                maxLength={254}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </label>
-
-            <label
-              style={{
-                display: "block",
-                marginTop: 19
-              }}
-            >
-              {t.language}
-
-              <select
-                style={field}
-                value={edition}
-                onChange={(e) =>
-                  setEdition(e.target.value)
-                }
-              >
-                <option value="en">
-                  English PDF
-                </option>
-
-                <option value="pt">
-                  {t.portugueseEdition}
-                </option>
-              </select>
-            </label>
-
-            <label
-              style={{
-                display: "block",
-                marginTop: 19
-              }}
-            >
-              {t.company}
-
-              <input
-                style={field}
-                maxLength={150}
-                value={company}
-                onChange={(e) =>
-                  setCompany(e.target.value)
-                }
-              />
-            </label>
-
-            <button
-              type="submit"
-              disabled={status === "sending"}
-              style={{
-                marginTop: 26,
-                padding: "16px 22px",
-                width: "100%",
-                border: 0,
-                borderRadius: 7,
-                fontSize: 16,
-                background: colors.green,
-                color: "#fff",
-                fontWeight: 700,
-                cursor: "pointer"
-              }}
-            >
-              {status === "sending"
-                ? t.sending
-                : t.submit}
-            </button>
-
-            {status === "success" && (
-              <p
-                role="status"
-                style={{
-                  color: "#17673f"
-                }}
-              >
-                {t.success}
-              </p>
-            )}
-
-            {status === "error" && (
-              <p
-                role="alert"
-                style={{
-                  color: "#a13729"
-                }}
-              >
-                {t.error}
-              </p>
-            )}
-          </form>
+          <p
+            style={{
+              fontSize: 13,
+              lineHeight: 1.6,
+              color: colors.muted,
+              marginTop: 16
+            }}
+          >
+            {t.formNote}
+          </p>
         </div>
       </section>
 
