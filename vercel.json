@@ -1,0 +1,9 @@
+
+{
+  "rewrites": [
+    {
+      "source": "/research/001",
+      "destination": "/index.html"
+    }
+  ]
+}
